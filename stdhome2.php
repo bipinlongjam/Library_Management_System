@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Student Details - Library Management</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+</head>
+
+<body style="background:linear-gradient( rgba(0, 51, 102,0.8) 100%, rgba(0, 51, 102,0.5)100%),url(image/HstalUg_321.jpg);">
+
+<?php
+    $servername = "localhost";
+    $user = "root";
+    $password = "";
+    $dbname = "lms";
+    
+    $conn = mysqli_connect($servername,$user,$password,$dbname);
+?>
+    <!-- Script for navbar -->
+    <?php  include('navbar.php'); ?>
+    <!-- Script for navbar -->
+
+            <div class="container">
+                        <?php
+                           if(isset($_POST['show']))
+                            {
+                                $sel = "SELECT * FROM std WHERE roll_no = '".$_POST['roll_no']."' ";
+                                $exe = mysqli_query($conn,$sel);
+                                $total = mysqli_num_rows($exe);
+                                if ($total == 1) {
+                                    $fetch = mysqli_fetch_array($exe);
+                                    $_SESSION['roll_no'] = $fetch['roll_no'];
+                                    include('students.php');
+                                }
+                                else
+                                {
+                                    echo '<script>window.location = "stdhome3.php"</script>';
+                                }
+                            }
+                        ?>
+            </div>
+
+            <div class="container">
+                        <?php
+                            include('issuedetail.php');
+                            // if(isset($_POST['show']))
+                            // {
+                            //     $sel = "SELECT * FROM issueee WHERE roll_no = '".$_POST['roll_no']."' ";
+                            //     echo $sel;
+                            //     $exe = mysqli_query($conn,$sel);
+                            //     $total = mysqli_num_rows($exe);
+                            //     if ($total == 1) {
+                            //         $fetch = mysqli_fetch_array($exe);
+                            //         $_SESSION['roll_no'] = $fetch['roll_no'];
+                            //         //include('issuedetail.php');
+                            //     }
+                            //     else
+                            //     {
+                            //         $output = '<h2 style="color:white;">Record Not Found!!!</h2>';
+                            //         echo "$output <br>"; 
+                            //         include 'stdissue.php';
+                            //     }
+                            // }
+                        ?>
+            </div>
+			
+
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</body>
+</html>
